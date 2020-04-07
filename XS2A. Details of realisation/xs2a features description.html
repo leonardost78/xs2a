@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>XS2A. Details of realisation</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>XS2A. Details of realisation</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">XS2A. Details of realisation</div>
+<ul class="sectlevel1">
+<li><a href="#_strong_customer_authentication">Strong customer authentication</a>
+<ul class="sectlevel2">
+<li><a href="#_sca_approaches">SCA Approaches</a></li>
+<li><a href="#_sca_using_the_redirect_approach">SCA using the redirect approach</a></li>
+<li><a href="#_support_pre_step_and_integrated_oauth_modes">Support Pre-step and Integrated OAuth modes</a></li>
+<li><a href="#_sca_using_the_decoupled_approach">SCA using the decoupled approach</a></li>
+<li><a href="#_sca_using_the_embedded_approach">SCA using the embedded approach</a></li>
+<li><a href="#_explicitimplicit_start_of_authorisation">Explicit/Implicit start of authorisation</a></li>
+<li><a href="#_confirmation_of_authorisation">Confirmation of Authorisation</a></li>
+<li><a href="#_authorisation_sca_statuses">Authorisation (SCA) Statuses</a></li>
+</ul>
+</li>
+<li><a href="#_payment_initiation_service">Payment Initiation Service</a>
+<ul class="sectlevel2">
+<li><a href="#_country_validation">Country validation</a></li>
+<li><a href="#_sca_approaches_fo_pis">SCA Approaches fo PIS</a></li>
+<li><a href="#_payment_statuses">Payment statuses</a></li>
+<li><a href="#_payment_cancellation">Payment Cancellation</a></li>
+</ul>
+</li>
+<li><a href="#_account_information_service">Account Information Service</a>
+<ul class="sectlevel2">
+<li><a href="#_establish_account_information_consent">Establish account information consent</a></li>
+<li><a href="#_consent_models">Consent Models</a></li>
+<li><a href="#_consent_expiration_date">Consent expiration date</a></li>
+<li><a href="#_frequency_per_day">Frequency Per Day</a></li>
+<li><a href="#_counting_of_frequencyperday">Counting of frequencyPerDay</a></li>
+<li><a href="#_consent_statuses">Consent statuses</a></li>
+<li><a href="#_revoke_all_consents_when_account_is_closed">Revoke all consents when account is closed</a></li>
+<li><a href="#_get_consent_status_request">Get consent Status Request</a></li>
+<li><a href="#_account_owner_name_service">Account Owner Name Service</a></li>
+<li><a href="#_account_identifier">Account Identifier</a></li>
+</ul>
+</li>
+<li><a href="#_read_account_data_requests">Read Account Data Requests</a>
+<ul class="sectlevel2">
+<li><a href="#_read_account_list">Read Account List</a></li>
+<li><a href="#_read_account_details">Read Account Details</a></li>
+<li><a href="#_read_balance">Read Balance</a></li>
+<li><a href="#_read_transaction_list">Read Transaction List</a></li>
+<li><a href="#_read_transaction_details">Read Transaction Details</a></li>
+</ul>
+</li>
+<li><a href="#_read_card_account_data">Read Card Account Data</a></li>
+<li><a href="#_multicurrency_accounts">Multicurrency Accounts</a></li>
+<li><a href="#_funds_confirmation_service">Funds Confirmation Service</a>
+<ul class="sectlevel2">
+<li><a href="#_piis_consent_statuses">PIIS Consent Statuses:</a></li>
+</ul>
+</li>
+<li><a href="#_resource_status_notification_service">Resource Status Notification Service</a></li>
+<li><a href="#_common_features">Common features</a>
+<ul class="sectlevel2">
+<li><a href="#_support_of_relative_and_global_links_in_responses">Support of Relative and Global links in responses</a></li>
+<li><a href="#_supported_payment_products">Supported payment products</a></li>
+<li><a href="#_tpps_role_validation">TPP&#8217;s role validation</a></li>
+<li><a href="#_signature_and_digest_verifier">Signature and digest verifier</a></li>
+<li><a href="#_validation_of_tpps_uris">Validation of TPPs URIs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<!-- toc disabled -->
+</div>
+</div>
+<div class="sect1">
+<h2 id="_strong_customer_authentication">Strong customer authentication</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="paragraph">
+<p>Following transactions require strong customer authentication (SCA) of the PSU at the XS2A interface as part of the transaction:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Payment initiation transactions.</p>
+</li>
+<li>
+<p>Cancellation initiation transactions (depending on the regulations for this kind of
+transactions at the user interfaces offered by the ASPSP to the PSU directly).</p>
+</li>
+<li>
+<p>Establish account information consent transactions.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_sca_approaches">SCA Approaches</h3>
+<div class="paragraph">
+<p>XS2A Interface supports multiple SCA approaches. <a href="https://github.com/adorsys/xs2a/tree/develop/aspsp-profile">ASPSP-Profile</a> may contain a list of approaches (in order of priority - first one with the highest priority).
+Choice of SCA approach also depends on header parameter in initial request - TPP-Redirect-Preferred.
+If TPP-Redirect-Preferred is true and ASPSP supports REDIRECT approach, then REDIRECT approach is used. Otherwise first approach in ASPSP-profile is used.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. A list of SCA approaches in ASPSP-Profile</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaApproaches</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of SCA Approaches supported by ASPSP ordered by priority</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REDIRECT, EMBEDDED, DECOUPLED</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_sca_using_the_redirect_approach">SCA using the redirect approach</h3>
+<div class="paragraph">
+<p>For the redirect approach the individual steps of the SCA are not executed at the XS2A interface, but directly between the PSU and the ASPSP. In this case, the PSU is redirected to a web interface of the ASPSP for authentication.
+Once the PSU has been redirected to the ASPSP (app or web interface) the SCA of the PSU is executed step by step and directly between the ASPSP and the PSU. After completion of the SCA the PSU is redirected back to the TPP.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_support_pre_step_and_integrated_oauth_modes">Support Pre-step and Integrated OAuth modes</h3>
+<div class="paragraph">
+<p>The XS2A supports OAuth2 mode in two ways: as a Pre-step for PSU authentication and as Integrated OAuth SCA approach for the authorisation of payment/ consent/ payment cancellation.</p>
+</div>
+<div class="paragraph">
+<p>Parameter <strong>"scaRedirectFlow"</strong> in the ASPSP-Profile defines variant of the SCA redirect approach:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>REDIRECT for standard Redirect SCA;</p>
+</li>
+<li>
+<p>OAUTH_PRESTEP for pre-step OAuth SCA (TPP asks for token before initiation of request);</p>
+</li>
+<li>
+<p>OAUTH for integrated OAuth SCA (TPP asks for token after initiation of request).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Parameter <strong>"oauthConfigurationUrl"</strong> in the ASPSP-Profile defines link to IDP (Authorisation Server) to authorise request with Redirect approach. Attribute is available to be configured with custom url pattern.</p>
+</div>
+<div class="sect3">
+<h4 id="_pre_step_oauth">Pre-step OAuth</h4>
+<div class="paragraph">
+<p>Profile settings:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaApproachesSupported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REDIRECT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaRedirectFlow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAUTH_PRESTEP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;RedirectUrlToAspsp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:4200/&#8230;&#8203" class="bare">http://localhost:4200/&#8230;&#8203</a>;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">oauthConfigurationUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:4242/&#8230;&#8203" class="bare">http://localhost:4242/&#8230;&#8203</a>;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>During Prestep OAuth TPP in initial request for consent, payment and payment cancellation must send header <em>Authorisation</em> with Token.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <strong>Token is present</strong>, then TPP did pre-step OAuth and XS2A gives link <strong>scaRedirect</strong> (based on &#8230;&#8203;RedirectUrlToAspsp in Profile) to redirect PSU to online-banking (or other authorisation server) for SCA.</p>
+</li>
+<li>
+<p>If <strong>Token is absent</strong> in initial request, then XS2A responds with <strong>HTTP error 401 Unauthorized</strong> "Please retrieve token first from &#8230;&#8203; (link scaOauth)".</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_integrated_oauth">Integrated OAuth</h4>
+<div class="paragraph">
+<p>Profile settings:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaApproachesSupported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REDIRECT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaRedirectFlow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAUTH</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;RedirectUrlToAspsp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:4200/&#8230;&#8203" class="bare">http://localhost:4200/&#8230;&#8203</a>;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">oauthConfigurationUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:4242/&#8230;&#8203" class="bare">http://localhost:4242/&#8230;&#8203</a>;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>If ASPSP supports integrated OAuth and <strong>Token is absent</strong> in initial request for consent, payment and payment cancellation, then XS2A gives link <strong>scaOauth</strong> (based on oauthConfigurationUrl in Profile) to redirect TPP to Authorisation Server (IDP).</p>
+</li>
+<li>
+<p>If <strong>Token is present</strong>, then XS2A responds with <strong>HTTP error 403 Forbidden</strong> "Token is not valid for the addressed service/resource."</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Header <em>Authorisation</em> should be present in all GET requests:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For pre-step Oauth - always.</p>
+</li>
+<li>
+<p>For integrated Oauth - after authorisation is finalised.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Token is validated in SPI, there is a collection of an error messages in responses in case of <strong>invalid token</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>401 TOKEN_UNKNOWN</strong> The OAuth2 token cannot be matched by the ASPSP relative to the TPP.</p>
+</li>
+<li>
+<p><strong>401 TOKEN_INVALID</strong> The OAuth2 token is associated to the TPP but is not valid for the addressed service/resource.</p>
+</li>
+<li>
+<p><strong>401 TOKEN_EXPIRED</strong> The OAuth2 token is associated to the TPP but has expired and needs to be renewed.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sca_using_the_decoupled_approach">SCA using the decoupled approach</h3>
+<div class="paragraph">
+<p>The transaction flow of the decoupled approach to SCA is similar to that of the redirect approach. The difference is that the ASPSP asks the PSU to authenticate
+e.g. by sending a push notification with payment transaction details to a dedicated mobile app or via any other application or device which is independent of the online banking frontend.
+The first factor of authorisation process is executed on XS2A side and the second one through the bank application</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sca_using_the_embedded_approach">SCA using the embedded approach</h3>
+<div class="paragraph">
+<p>When applying the embedded approach the SCA of the PSU is executed entirely as part of the transaction at the XS2A interface.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_explicitimplicit_start_of_authorisation">Explicit/Implicit start of authorisation</h3>
+<div class="paragraph">
+<p>Explicit start of authorisation is supported in case of Multilevel SCA and in case of Signing Basket, otherwise there is implicit start of authorisation.</p>
+</div>
+<div class="paragraph">
+<p>ASPSP may have Explicit\Implicit\Auto start of authorisation in any case of all flows.</p>
+</div>
+<div class="paragraph">
+<p>There is an option in ASPSP- Profile <strong>"startAuthorisationMode"</strong> that accepts 3 values (<strong>case-insensetive</strong>):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Explicit - always explicit;</p>
+</li>
+<li>
+<p>Auto - current behaviour (and also default value if no option is set);</p>
+</li>
+<li>
+<p>Implicit - always implicit.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This force overrides multilevel SCA, signing baskets etc.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_confirmation_of_authorisation">Confirmation of Authorisation</h3>
+<div class="paragraph">
+<p>For counteraction of the fraud attacks in Redirect Approach, there is additional step for confirmation of Authorisation (Payment Initiation, Establish AIS Consent, Payment Cancellation process).</p>
+</div>
+<div class="paragraph">
+<p>This solution is following the solution proposal as defined in OAuth2 using an access token resp. a confirmation code for a confirmation command of the TPP
+after the transaction has been authorized by the PSU via a redirection to the ASPSP authentication server.</p>
+</div>
+<div class="paragraph">
+<p>This solution available for the Integrated OAuth NextGenPSD2 Interface solution as well as for a plain redirect SCA approach. The ASPSP will inform the TPP about
+the extended process step by providing an additional hyperlink with <strong>tag "confirmation"</strong> together with either the hyplink with tag <strong>"scaOAuth" or "redirect"</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The payment (consent, signing basket) will not be executed by the ASPSP as long as the Transaction Confirmation Request Message has not been performed.</p>
+</div>
+<div class="paragraph">
+<p>The hyperlink with tag <strong>"confirmation"</strong> might be added by the ASPSP to the response body in the following sections of [XS2A IG]:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Section 5.3.1 Payment Initiation Request (JSON encoding);</p>
+</li>
+<li>
+<p>Section 6.4.1 Account Information Concent Request;</p>
+</li>
+<li>
+<p>Section 6.4.4 Multilevel SCA for Establish Consent;</p>
+</li>
+<li>
+<p>Section 7.1 Start Authorisation Process;</p>
+</li>
+<li>
+<p>Section 7.2.3 Update PSU Data (Select Authentication Method).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The entry for the hyperlink is defined as follows:</p>
+</div>
+<div class="paragraph">
+<p><strong>"confirmation":</strong> Might be added by the ASPSP if either the "redirect" or "scaOAuth" hyperlink is returned in the same response message. This hyperlink defines the URL to the resource which needs to be updated with:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a confirmation code as retrieved after the plain redirect authentication process with the ASPSP authentication server or</p>
+</li>
+<li>
+<p>an access token as retrieved by submitting an authorization code after the integrated OAuth based authentication process with the ASPSP authentication server.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the confirmation of the transaction authorisation is mandated by the ASPSP by providing a hyperlink with tag "confirmation", then a new code "unconfirmed" is introduced to the SCA Status data type:</p>
+</div>
+<div class="paragraph">
+<p><strong>unconfirmed</strong> - "Authorisation is technically successfully finalised by the PSU, but the authorisation resource needs a confirmation command by the TPP yet".</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This definition implies that the current available scaStatus "finalised" is still telling the TPP that the full authorisation process (including potentially a confirmation) is successfully completed.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In case where a confirmation is processed but the preceding SCA method failed, then XS2A responds with <strong>HTTP code 400 SCA_INVALID</strong>. </p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../usecases/diagrams/PaymentRedirectWithConfirmationCode.png" alt="Payment Initiation in Redirect Approach with Authorisation Confirmation Code">
+</div>
+<div class="title">Figure 1. Payment Initiation in Redirect Approach with Authorisation Confirmation Code</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_authorisation_sca_statuses">Authorisation (SCA) Statuses</h3>
+<div class="paragraph">
+<p>Statuses which are defined finalised:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Finalised (The SCA routine has been finalised successfully);</p>
+</li>
+<li>
+<p>Failed(The SCA routine failed);</p>
+</li>
+<li>
+<p>Exempted (SCA was exempted for the related transaction, the related authorisation is successful).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After setting finalised status for Authorisation status isn&#8217;t allowed to be changed in CMS any more.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_payment_initiation_service">Payment Initiation Service</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="paragraph">
+<p>The support of this service at the XS2A interface is mandatory.
+Transactions according to this use case can be used to initiate a single payment in form of a credit transfer from an account of the PSU to an account of the payee.</p>
+</div>
+<div class="paragraph">
+<p>While the transaction at the XS2A interface is initiated by the TPP, it must first be initiated by the PSU at the PSU – TPP interface.
+The ASPSP will reject the transaction if the TPP cannot be identified correctly at the XS2A interface and/or if it does not have the role PISP. Subject to the decision of the ASPSP, strong customer authentication of the PSU has to be executed.</p>
+</div>
+<div class="paragraph">
+<p>Current version of the XS2A Interface supports the following types of payments:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Single payment;</p>
+</li>
+<li>
+<p>Future dated single payment;</p>
+</li>
+<li>
+<p>Bulk payment;</p>
+</li>
+<li>
+<p>Periodic payment.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_country_validation">Country validation</h3>
+<div class="paragraph">
+<p>According to BG Specification every country can have their local requirements for information included in the Payment Request.
+Payment validation on XS2A side can support different countries.</p>
+</div>
+<div class="paragraph">
+<p>It is up to ASPSP to decide the for which countries payment validation will be performed.
+Parameter <strong>"countryValidationSupported"</strong> in the ASPSP-Profile, defines for which country the payment is validated.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sca_approaches_fo_pis">SCA Approaches fo PIS</h3>
+<div class="sect3">
+<h4 id="_payment_initiation_service_in_redirect_approach">Payment Initiation Service in Redirect Approach</h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../usecases/diagrams/paymentInitRedirect.png" alt="Payment Initiation in Redirect Approach">
+</div>
+<div class="title">Figure 2. Payment Initiation in Redirect Approach</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_integration_oauth2_redirect_sca_approach">Integration OAuth2 Redirect SCA Approach</h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../usecases/diagrams/PaymentInitOAuth.png" alt="Payment Initiation in OAuth with Redirect Approach">
+</div>
+<div class="title">Figure 3. Payment Initiation in OAuth with Redirect Approach</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_payment_initiation_service_in_embedded_approach">Payment Initiation Service in Embedded Approach</h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../usecases/diagrams/paymentInitEmbedded.png" alt="Payment Initiation in Embedded Approach">
+</div>
+<div class="title">Figure 4. Payment Initiation in Embedded Approach</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_payment_statuses">Payment statuses</h3>
+<div class="paragraph">
+<p>Payment transaction status is synchronised in bank&#8217;s database and in CMS. When payment data with payment transaction status is given from ASPSP, status will be updated in CMS, even if it is already finalised. There is endpoint in cms-aspsp-api to set payment data with payment transaction status directly from ASPSP to CMS.</p>
+</div>
+<div class="paragraph">
+<p>Status settlement:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Not confirmed with SCA payments obsolete after a certain period. Payment Transaction Status becomes "rejected" and Sca Status for dedicated payment authorisation becomes "failed";</p>
+</li>
+<li>
+<p>In case TPP tries to initiate new authorisation for expired payment, XS2A sends the response with <strong>HTTP code 403 RESOURCE_EXPIRED</strong>;</p>
+</li>
+<li>
+<p>In case of usage non-existent payment-id XS2A sends response with HTTP code 404 RESOURCE_UNKNOWN.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The transaction statuses of the payment initiation resource which are defined as <strong>Finalised</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Cancelled</strong> (Payment initiation has been cancelled before execution);</p>
+</li>
+<li>
+<p><strong>Rejected</strong> (Payment initiation or individual transaction included in the payment initiation has been rejected);</p>
+</li>
+<li>
+<p><strong>AcceptedSettlementCompleted</strong> (indicating that the money has been booked already from the debtor account).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After setting finalised status for payment:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>status isn&#8217;t allowed to be changed in CMS any more (except the case when ASPSP updates is directly in CMS);</p>
+</li>
+<li>
+<p>new authorisation sub-resource can&#8217;t be created;</p>
+</li>
+<li>
+<p>cancellation can&#8217;t be proceeded.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_payment_cancellation">Payment Cancellation</h3>
+<div class="paragraph">
+<p>The support of this use case at the XS2A interface is optional.
+A TPP may execute a transaction according to this use case to cancel a (still pending) payment, which has been initiated before. Only future dated payments and recurring payments may be cancelled.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+It is up to the ASPSP to decide if a given payment can still be cancelled or not.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Depending on SpiPaymentCancellationResponse properties <strong>transactionStatus</strong> and <strong>cancellationAuthorisationMandated</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>XS2A starts authorisation process of payment cancellation only for authorised payments (which were sent and accepted by ASPSP);</p>
+</li>
+<li>
+<p>When payment is finished (has one of transaction statuses Cancelled, Rejected, AcceptedSettlementCompleted) there isn&#8217;t possibility to cancel it or to proceed payment cancellation authorisation flow. In this case XS2A sends the response with HTTP code 400 FORMAT_ERROR and output "Payment is finalised already and cannot be cancelled";</p>
+</li>
+<li>
+<p>If the payment is initiated and authorisation is not finished yet, then it is not yet sent to ASPSP and cancellation will be done without authorisation, even if ASPSP supports authorisation for cancellation of payment.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Payment Cancellation Authorisation Mandated in Profile and in SpiPaymentCancellationResponse</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">value</th>
+<th class="tableblock halign-left valign-top">value</th>
+<th class="tableblock halign-left valign-top">value</th>
+<th class="tableblock halign-left valign-top">value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Profile: <strong>paymentCancellationAuthorisationMandated</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SpiPaymentCancellationResponse:</p>
+<p class="tableblock">  <strong>cancellationAuthorisationMandated</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete without authorisation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with authorisation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with authorisation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with authorisation</p></td>
+</tr>
+</tbody>
+</table>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../usecases/diagrams/PaymentCancellation%20Redirect.png" alt="Payment Cancellation in Redirect Approach">
+</div>
+<div class="title">Figure 5. Payment Cancellation in Redirect Approach</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_account_information_service">Account Information Service</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="sect2">
+<h3 id="_establish_account_information_consent">Establish account information consent</h3>
+<div class="paragraph">
+<p>The support of this endpoint at the XS2A interface is mandatory.
+A TPP may execute transactions according to this use case to receive the right to execute further transactions according to the other use cases of the account information service. Subject to consent of the PSU, the TPP can obtain the following rights for transactions (of the account information service):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Get the list of reachable accounts of the PSU once;</p>
+</li>
+<li>
+<p>Get the balances for a list of accounts once or multiple times;</p>
+</li>
+<li>
+<p>Get payment transaction information for a list of accounts once or multiple times.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_xs2a_performs_validation">XS2A performs validation</h4>
+<div class="paragraph">
+<p>TPP data from certificate in request is compared in CMS with TPP data in Consent:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Account data should be requested by the same TPP which was given a Consent (TPP Reg_Num = tpp_id). In case when validation is unsuccessful, XS2A sends the response with HTTP code 400 CONSENT_UNKNOWN;</p>
+</li>
+<li>
+<p>First check should be for consent access, and then for expiration;</p>
+</li>
+<li>
+<p>The consent is considered ready to be used by the TPP to access the AIS service when the status is VALID. A consent with RECEIVED status does not have an access token yet. If TPP wants to get account details, transactions and balances with consent which status is Received, XS2A sends the response with HTTP code 401 CONSENT_INVALID;</p>
+</li>
+<li>
+<p>In case of usage non-existent consent-id XS2A sends response  with HTTP code 403 CONSENT_UNKNOWN.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_account_information_service_in_redirect_approach">Account Information Service in Redirect approach</h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../usecases/diagrams/ConsentInitRedirect.png" alt="Consent Initiation in Redirect Approach">
+</div>
+<div class="title">Figure 6. Consent Initiation in Redirect Approach</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_account_information_service_in_embedded_approach">Account Information Service in Embedded approach</h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../usecases/diagrams/ConsentInitEmbedded.png" alt="Consent Initiation in Embedded Approach">
+</div>
+<div class="title">Figure 7. Consent Initiation in Embedded Approach</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_consent_models">Consent Models</h3>
+<div class="paragraph">
+<p>The XS2A supports four different consent models:</p>
+</div>
+<div class="sect3">
+<h4 id="_consent_on_dedicated_accounts">Consent on Dedicated Accounts:</h4>
+<div class="paragraph">
+<p>Creates an account information consent resource at the ASPSP regarding access to accounts specified in this request.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All permitted "access" attributes ("accounts", "balances" and "transactions") used in this message shall carry a non-empty array of account references, indicating the accounts where the type of access is requested.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+that a "transactions" or "balances" access right also gives access to the generic /accounts endpoints, i.e. is implicitly supporting also the "accounts" access.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Consent on Dedicated Accounts affects on response body for all account endpoints:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Get consent request;</p>
+</li>
+<li>
+<p>Read account list;</p>
+</li>
+<li>
+<p>Read account details;</p>
+</li>
+<li>
+<p>Read balance;</p>
+</li>
+<li>
+<p>Read transaction list;</p>
+</li>
+<li>
+<p>Read transaction details.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When this Consent Request is a request where the “recurringIndicator” equals true, and if it exists already a former consent
+for recurring access on account information for the addressed PSU and potentially addressed corporate identification submitted by this TPP, then the former consent automatically expires as soon as the new consent request is authorised by the PSU.</p>
+</div>
+<div class="paragraph">
+<p>There are no expiration side effects foreseen for Consent Requests where the “recurringIndicator” equals false.</p>
+</div>
+<div class="paragraph">
+<p>When this Consent Request is a request for one access to the account data then "recurringIndicator" equals false and "accountAccessFrequencyPerDay" should not be more than "1".</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_consent_on_account_list_of_available_accounts">Consent on Account List of Available Accounts</h4>
+<div class="paragraph">
+<p>This function implies a consent resource at the ASPSP to return a list of all available accounts, resp. all available accounts with its balances.</p>
+</div>
+<div class="paragraph">
+<p>The ability to create Consent on Account List of Available Accounts depends on successful validation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The attribute in the ASPSP-Profile "<strong>availableAccountsConsentSupported</strong>" should be set to "TRUE". If Consent on Account List of Available Accounts is not supported in Profile - respond with 400 SERVICE_INVALID;</p>
+</li>
+<li>
+<p>The consent should only contains the "availableAccounts" or “availableAccountsWithBalance” sub attribute within the "access" attribute with value "allAccounts";</p>
+</li>
+<li>
+<p>All possible content of "accounts", "balances", "transactions" fields is ignored if call contains attribute "availableAccounts" or “availableAccountsWithBalance”;</p>
+</li>
+<li>
+<p>Applying one or two-factor authorisation depends on the value  of the parameter in ASPSP-Profile "<strong>scaByOneTimeAvailableAccountsConsentRequired</strong>" (true (by default), false);</p>
+</li>
+<li>
+<p>When in profile parameter “<strong>scaByOneTimeAvailableAccountsConsentRequired</strong>”=<strong>false</strong>, request contains reccuringIndicator=false and in SPI Response "multilevelSca"=true, then multilevel flag is ignored and Consent become "Valid" after execution one-factor authorisation (login and password) by one PSU. </p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Consent on Account List of Available Accounts</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Authorisation</th>
+<th class="tableblock halign-left valign-top">Consent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Account Access</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">availableAccounts OR availableAccountsWithBalance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allAccounts</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">one-factor authorisation  (PSU-ID and password)</p></td>
+<td class="tableblock halign-center valign-middle" rowspan="7"><p class="tableblock"><strong>Consent on Account List of Available Accounts</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><strong>ASPSP Profile</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">availableAccountsConsentSupported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TRUE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaByOneTimeAvailableAccountsConsentRequired</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FALSE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Account Access</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">availableAccounts OR availableAccountsWithBalance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allAccounts</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">two-factor authorisation(PSU-ID and password + TAN)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><strong>ASPSP Profile</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">availableAccountsConsentSupported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TRUE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaByOneTimeAvailableAccountsConsentRequired</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TRUE</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_bank_offered_consent">Bank Offered Consent</h4>
+<div class="paragraph">
+<p>This function implies a consent without indication of Accounts. The ASPSP will then agree bilaterally directly with the PSU on which accounts the requested access consent should be supported.</p>
+</div>
+<div class="paragraph">
+<p>During authorisation in Online-Banking PSU chooses type of consent and accesses (it may be Dedicated Account Consent, Global Consent, All Available Accounts Consent or All Available Accounts With Balances Consent)
+and Online-Banking stored them through the endpoint PUT /psu-api/v1/ais/consent/{consent-id}/save-access.</p>
+</div>
+<div class="paragraph">
+<p>When TPP requests Get Consent with this consent-id, xs2a should respond with accesses written by Online-Banking in CMS during authorisation.</p>
+</div>
+<div class="paragraph">
+<p>When TPP requests Read Account Data with this consent-id, xs2a should respond according to authorised accesses:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dedicated Account Consent;</p>
+</li>
+<li>
+<p>Global Consent;</p>
+</li>
+<li>
+<p>All Available Accounts Consent or All Available Accounts With Balances Consent.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The ability to create Bank Offered Consent depends on successful validation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The attribute in ASPSP-Profile "<strong>bankOfferedConsentSupported</strong>" should be set to "TRUE". If Bank Offered consent is not supported in Profile - respond with 400 SERVICE_INVALID;</p>
+</li>
+<li>
+<p>The call contains the "accounts", "balances" and/or "transactions" sub attribute within the "access" attribute all with an empty array;</p>
+</li>
+<li>
+<p>For this function the Embedded SCA Approach is not supported.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_global_consent">Global Consent</h4>
+<div class="paragraph">
+<p>This function implies a consent on all available accounts of the PSU on all PSD2 related account information services (meaning access to all account endpoints including balances and transactions).
+Response for Read Account Data request, with Global Consent access, contains links for related balances and transactions.
+Global consent can be recurring and one-off.</p>
+</div>
+<div class="paragraph">
+<p>The ability to create Global Consent depends on successful validation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The attribute in ASPSP-Profile "<strong>globalConsentSupported</strong>" should be set to "TRUE". If Global consent is not supported in Profile - respond with 400 SERVICE_INVALID;</p>
+</li>
+<li>
+<p>The call contains the "allPsd2" sub attribute within the "access" attribute with the value "allAccounts";</p>
+</li>
+<li>
+<p>All possible content of "accounts", "balances", "transactions", "availableAccounts" or “availableAccountsWithBalance” fields is ignored if call contains attribute "allPsd2";</p>
+</li>
+<li>
+<p>Applying one or two-factor authorisation depends on the value  of the parameter in ASPSP-Profile "<strong>scaByOneTimeGlobalConsentRequired</strong>" (true (by default), false).</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Global Consent</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Authorisation</th>
+<th class="tableblock halign-left valign-top">Consent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Account Access</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allPsd2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allAccounts</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">one-factor authorisation  (PSU-ID and password)</p></td>
+<td class="tableblock halign-center valign-middle" rowspan="7"><p class="tableblock"><strong>Global Consent</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><strong>ASPSP Profile</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">globalConsentSupported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TRUE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaByOneTimeGlobalConsentRequired</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FALSE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Account Access</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allPsd2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allAccounts</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">two-factor authorisation(PSU-ID and password + TAN)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><strong>ASPSP Profile</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">globalConsentSupported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TRUE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaByOneTimeGlobalConsentRequired</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TRUE</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_consent_expiration_date">Consent expiration date</h3>
+<div class="paragraph">
+<p>All requests to the CMS concerning any consentID should be validated for mandatory field "validUntil". Field "validUntil" is adjusted for Consent in CMS according to parameter in ASPSP-Profile "maxConsentValidityDays":</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>if parameter "maxConsentValidityDays" = 0 or empty, then the maximum lifetime of Consent is infinity. Therefore no adjustment should be applied;</p>
+</li>
+<li>
+<p>if parameter "maxConsentValidityDays" &gt; 0, then the limit of a maximum lifetime of Consent is set in days and “validUntil” should be adjusted and stored in CMS with new value. For example, date of Consent request is 2019-03-01, “validUntil” is “9999-12-31" and "maxConsentValidityDays"=10, then adjusted value of “validUntil” should be 2019-03-10. And TPP will get new adjusted value by Get consent request;</p>
+</li>
+<li>
+<p>if parameter "maxConsentValidityDays" &gt; 0 and “validUntil” contains date far than it is allowed by bank, then there should be adjustment to the date according "maxConsentValidityDays". For example, date of Consent request creation is 2019-03-01, “validUntil” is “2019-04-20" and "maxConsentValidityDays"=10, then adjusted value of “validUntil” should be 2019-03-10. And TPP will get new adjusted value by Get consent request;</p>
+</li>
+<li>
+<p>if parameter "maxConsentValidityDays" &gt; 0 and “validUntil” contains date less than it could be allowed by bank, then no adjustment should be applied. For example, date of Consent request creation is 2019-03-01, “validUntil” is “2019-03-10" and "maxConsentValidityDays"=15, then adjusted value of “validUntil” should be 2019-03-10. And TPP will get "validUntil” =2019-03-10 by Get consent request;</p>
+</li>
+<li>
+<p>If the date of "validUntil" is in the past, then XS2A sends the response with HTTP code 401 CONSENT_EXPIRED;</p>
+</li>
+<li>
+<p>In case TPP tries to initiate new authorisation for expired consent, XS2A sends the response with HTTP code 403 CONSENT_EXPIRED.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_frequency_per_day">Frequency Per Day</h3>
+<div class="paragraph">
+<p>Value frequencyPerDay is adjusted according to profile setting “<strong>accountAccessFrequencyPerDay</strong>” and <strong>cannot be more</strong> than it is set in the ASPSP-Profile.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_counting_of_frequencyperday">Counting of frequencyPerDay</h3>
+<div class="paragraph">
+<p>Attribute <strong>"accountAccessFrequencyPerDay"</strong> in the ASPSP-Profile indicates the requested maximum frequency for an access without PSU involvement per day. For a one-off access, this attribute is set to "1"."</p>
+</div>
+<div class="paragraph">
+<p>Number of TPP accesses is counted by every endpoint:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>/accounts;</p>
+</li>
+<li>
+<p>/accounts/account-id per account-id;</p>
+</li>
+<li>
+<p>/accounts/account-id/transactions per account-id;</p>
+</li>
+<li>
+<p>/accounts/account-id/balances per account-id;</p>
+</li>
+<li>
+<p>/accounts/account-id/transactions/transaction-id per account-id and transaction-id, if applicable.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the amount of accesses for any of these endpoints is exceeded - <strong>HTTP error 429 ACCESS_EXCEEDED</strong> is returned. All other endpoints are still accessible until their amount is not exceeded.</p>
+</div>
+<div class="sect3">
+<h4 id="_frequencyis_addressing_only_the_read_account_data_requests_without_psu_involvement">Frequency is addressing only the Read Account Data Requests without PSU involvement:</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>When any GET Account Data Requests contain filled parameter PSU-IP-Address, then frequencyPerDay isn&#8217;t counted for this request with recurring consent.</p>
+</li>
+<li>
+<p>For one-off consent PSU-IP-Address is ignored and frequencyPerDay is counted.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_consent_statuses">Consent statuses</h3>
+<div class="paragraph">
+<p>The status of the consent (the data element "consentStatus")resource is changing during the initiation process. In difference to the payment initiation process, there are only SCA checks on the consent resource and no feedback loop with the ASPSP backend.</p>
+</div>
+<div class="paragraph">
+<p>Status settlement:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>While creating consent, in case of existing old unauthorised  recurring consent (status "received") for one TPP and one PSU - its consent status becomes "rejected",  as soon as new recurring one becomes authorised (consent status set to VALID);</p>
+</li>
+<li>
+<p>While creating consent, in case of existing old recurring authorised consent for one TPP and one PSU - its consent status becomes "Terminated_by_TPP" as soon as new recurring consent becomes authorised (consent status set to VALID);</p>
+</li>
+<li>
+<p>Consent without successful authorisation expire after a certain period. Consent Status becomes "rejected" and Sca Status for consent authorisation becomes "failed".</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Consent Statuses which are defined as <strong>Finalised</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Rejected</strong> (The consent data is rejected e.g. since no successful authorisation takes place);</p>
+</li>
+<li>
+<p><strong>RevokedByPSU</strong> (The consent has been revoked by the PSU);</p>
+</li>
+<li>
+<p><strong>Expired</strong> (The consent has been expired (e.g. after 90 days);</p>
+</li>
+<li>
+<p><strong>TerminatedByTpp</strong> (The corresponding TPP has terminated the consent by applying the DELETE method to the consent resource).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After setting finalised status for consent:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>status isn&#8217;t allowed to be changed in CMS any more;</p>
+</li>
+<li>
+<p>new authorisation sub-resource can&#8217;t be created.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_revoke_all_consents_when_account_is_closed">Revoke all consents when account is closed</h3>
+<div class="paragraph">
+<p>In case PSU decides to close an account in the bank - ASPSP enables to revoke all AIS and PIIS consents of account in one step. It can be performed via endpoint in the CMS-PSU-API.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_consent_status_request">Get consent Status Request</h3>
+<div class="paragraph">
+<p>Field <strong>lastActionDate</strong> - is containing the date of the last action on the consent object either through the XS2A interface or the PSU/ASPSP interface having an impact on the status:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When consent is created and gets status "Received" - lastActionDate contains date of consent creation.</p>
+</li>
+<li>
+<p>When consent status is changed - lastActionDate also is updated with new date.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_account_owner_name_service">Account Owner Name Service</h3>
+<div class="paragraph">
+<p>The following rules and requirements for the support of this service apply:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An ASPSP may deliver the account owner service without any extension to the consent model as defined in [XS2A-IG].</p>
+</li>
+<li>
+<p>An ASPSP may require an explicit consent by the PSU to deliver the account owner name service.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>ASPSP may decide whether to support additional account information or not, by setting the corresponding value for parameter in the ASPSP-Profile:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>accountOwnerInformationSupported</strong> (boolean, default value is FALSE).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If additional account information is supported by ASPSP, then after authorisation of consent ASPSP will indicate additional account information in Account Details or empty array in Account Details (if consent right to have additional info is not confirmed for this PSU).</p>
+</div>
+<div class="paragraph">
+<p>Optional field <strong>"additionalInformation"</strong> of type <strong>"Additional Information Access"</strong> in the Consent Request:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>is asking for additional information as added within this structured object. In case of ASPSP does not support Account Owner Name Service (accountOwnerInformationSupported = FALSE)
+then the Message Code <strong>CONSENT_INVALID</strong> is in response with text <strong>"An explicit consent of ownerName is not supported"</strong>.</p>
+</li>
+<li>
+<p>value of this parameter can be array or empty:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The usage of this data element requires at least one of the entries "accounts", "transactions" or "balances" also to be contained in the object.</p>
+</li>
+<li>
+<p>If the array is empty, also the arrays for accounts, balances or transactions shall be empty if used. If the array is empty in the request, the TPP is asking for the account owner name of all accessible accounts.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In Consent Request body fields <strong>"availableAccounts"</strong>, <strong>"availableAccountsWithBalance"</strong> and <strong>"allPsd2"</strong> may have additional value <strong>"allAccountsWithOwnerName"</strong>.
+So if any of these fields are present in consent request and ASPSP-Profile contains <strong>accountOwnerInformationSupported=true</strong>, new values are stored in consent and passed to SPI together with consent object.</p>
+</div>
+<div class="paragraph">
+<p>On SPI Level there is new <code>SpiAdditionalInformationAccess</code> field In <code>SpiAccountConsent</code> object in <code>SpiAccountAccess</code> block which represents TPP desire
+to retrieve additional information (<strong>ownerName</strong>) about PSU by it&#8217;s account reference.</p>
+</div>
+<div class="paragraph">
+<p>This information ASPSP can provide through <code>ownerName</code> field in <code>SpiAccountDetails</code> object, during invoking <code>requestAccountList</code> or <code>requestAccountDetailForAccount</code> methods in AccountSpi.</p>
+</div>
+<div class="paragraph">
+<p>Get Consent Request returns created Consent.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_account_identifier">Account Identifier</h3>
+<div class="paragraph">
+<p><strong>aspspAccountId</strong> - This field is a specific unique identifier for bank accounts used in payments, AIS, and PIIS consents (known to bank and given by bank) instead of IBAN and to give all consents for account by this identifier.</p>
+</div>
+<div class="paragraph">
+<p>Parameter:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>sets as Optional in Account Reference;</p>
+</li>
+<li>
+<p>can be provided in response to SPI initiatePayment or initiateConsent request;</p>
+</li>
+<li>
+<p>for PIIS aspspAccountId can be provided on creation of PIIS consent on endpoint POST /aspsp-api/v1/piis/consents as a part of account data;</p>
+</li>
+<li>
+<p>can be used as search criteria on export endpoints in CMS then.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>ASPSP can add <strong>aspspAccountId</strong> to AIS, PIIS consent while:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>create consent request is received, or</p>
+</li>
+<li>
+<p>get account list request is received.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_read_account_data_requests">Read Account Data Requests</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="paragraph">
+<p>The Read Account Data flow is independent from the corresponding Consent Management flow. It is a simple Request/Response process.</p>
+</div>
+<div class="paragraph">
+<p>For all Read Account Data Requests:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Read Account List;</p>
+</li>
+<li>
+<p>Read Account Details;</p>
+</li>
+<li>
+<p>Read Balance;</p>
+</li>
+<li>
+<p>Read Transaction List;</p>
+</li>
+<li>
+<p>Read Transaction Details;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>the <strong>PSU-IP-Address added to the request header</strong> definitions with the Condition "Conditional" and the following description to identify PSU involvement: "The forwarded IP Address header field consists of the corresponding HTTP request IP Address field between PSU and TPP. It shall be contained if and only if this request was actively initiated by the PSU."</p>
+</div>
+<div class="paragraph">
+<p><strong>Granted Permission in appropriate Consent</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For Get accounts with balances (query parameter <strong>withBalance = true</strong> ) validate if permission exists in the Consent.  In case when validation is unsuccessful, XS2A sends the response with HTTP code 401 CONSENT_INVALID and output "The consent was created by this TPP but is not valid for the addressed service/resource";</p>
+</li>
+<li>
+<p>According to Specification 1.3: To have possibility to get balances or transactions or account data, TPP needs to know account-id - this identification is denoting the addressed account. The account-id is retrieved by using a “Read Account List” call. The account-id is the “resourceId” attribute of the account structure.
+Its value is constant at least throughout the lifecycle of a given consent. So after consent is expired - ASPSP may change account-ids and after establishing new consent TPP will need a new call to get account-ids;</p>
+</li>
+<li>
+<p>If Get account request has <strong>"withBalance=true"</strong> query parameter and Consent permission is valid - response should contain array of balances for account which was granted consent for balances. And it doesn&#8217;t influence on links;</p>
+</li>
+<li>
+<p>If Get account request has <strong>"withBalance=false"</strong> query parameter - response should not contain array of balances. And it doesn&#8217;t influence on links;</p>
+</li>
+<li>
+<p>In case of access not granted for balances or transactions, XS2A sends the response with HTTP code 401 CONSENT_INVALID;</p>
+</li>
+<li>
+<p>Links balances and transactions should appear in Get Account response according to Consent access.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_read_account_list">Read Account List</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_read_account_details">Read Account Details</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_read_balance">Read Balance</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_read_transaction_list">Read Transaction List</h3>
+<div class="paragraph">
+<p>The support of "Get transaction information for a given account" at the XS2A interface is mandatory. </p>
+</div>
+<div class="paragraph">
+<p>The TPP can use transactions according to this use case to receive information about payment transactions of a specific account. As a result the TPP will receive information about all payment transactions executed during the time period indicated in the request. In addition, the ASPSP might return also the booking balance.</p>
+</div>
+<div class="paragraph">
+<p>In addition, the ASPSP can optionally offer the service of a delta report. In this case, the ASPSP is delivering only the information about payment transaction since the last access of this TPP to this account information service or it is delivering the information about payment transaction starting with the next transaction of a payment transaction with a given transaction identification.</p>
+</div>
+<div class="paragraph">
+<p>Transaction List can&#8217;t be presented for the period which started more than 90 days ago. This rule will be set up and checked by ASPSP. There is no any validation on the XS2A side for now.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Read Transaction List (Delta report)</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Condition</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Term of use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock"><strong>TPP may ask transaction list for some period, which is defined by parameters dateFrom and dateTo, or report for some delta access</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dateFrom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starting date of the transaction list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mandated</strong> if no delta access is required (no entryReferenceFrom or deltaList in request).</p>
+<p class="tableblock">Might be ignored if a delta function is used  or if bookingStatus equals "information".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dateTo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">End of the transaction list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If not given - default is "now" (for the period from “dateFrom” till “now”).</p>
+<p class="tableblock">Might be ignored if a delta function is used or if bookingStatus equals "information".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock"><strong>Delta access is represented by one of two query parameters in Read Transaction List request:</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">entryReferenceFrom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional if supported by API provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This data attribute is indicating that the AISP is in favor to get all transactions after the transaction with identification entryReferenceFrom alternatively to the above defined period</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If this data element is contained, the entries "dateFrom" and "dateTo" might be ignored by the ASPSP in case of a delta report is supported (ASPSP-profile contains parameter "entryReferenceFromSupported" = true).</p>
+<p class="tableblock"> This delta indicator might be rejected by the ASPSP if this function is not supported (in ASPSP-profile "entryReferenceFromSupported" = false), and there are NO parameters "dateFrom" and "dateTo",
+ in this case in response an error will be sent <strong>"PARAMETER_NOT_SUPPORTED" HTTP code 400</strong></p>
+<p class="tableblock"> If query parameters "dateFrom" and "dateTo", and "entryReference" are present in request, but "entryReferenceFromSupported"=false - response should contain transaction list for period "dateFrom" and "dateTo".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">deltaList</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional if supported by API provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This data attribute is indicating that the AISP is in favor to get all transactions after the last report access for this PSU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If this data element is contained, the entries "dateFrom" and "dateTo" might be ignored by the ASPSP in case of a delta report is supported (ASPSP-profile contains parameter "deltaList " = true).</p>
+<p class="tableblock"> This delta indicator might be rejected by the ASPSP if this function is not supported (in ASPSP-profile "deltaListSupported" =false), and there are NO parameters "dateFrom" and "dateTo",
+ in this case in response an error should be sent <strong>"PARAMETER_NOT_SUPPORTED" HTTP code 400</strong></p>
+<p class="tableblock"> If query parameters "dateFrom" and "dateTo", and "deltaList" are present in request, but "deltaListSupported"=false - response should contain transaction list for period "dateFrom" and "dateTo".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock">- Transaction List Response should contain parameter "entryReference" for every sent transaction (for both reports – with parameter “deltaList” and “entryReferenceFrom”, if supported by ASPSP)</p>
+<p class="tableblock">- If request contains both optional Query Parameters "deltaList" and "entryReferenceFrom", then  Read Transaction List  response contains <strong>HTTP code 400 FORMAT_ERROR</strong> (Only one delta report query parameter can be present in request)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bookingStatus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandatory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Permitted codes are "booked", "pending", "both" and "information".</p>
+<p class="tableblock"> "booked" shall be supported by the ASPSP.</p>
+<p class="tableblock"> To support the "pending", "both", "information"  feature is optional for the ASPSP.</p>
+<p class="tableblock"><strong>NOTE:</strong> In case of bookingStatus equals <strong>"information"</strong>, the query parameters dateFrom, dateTo, withBalance deltaList and entryReferenceFrom will be ignored and have no effect on the result.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In case of usage parameters which are not supported ( not contains in ASPSP-Profile "availableBookingStatuses") response is send "PARAMETER_NOT_SUPPORTED" code 400</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">withBalance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If contained, this function reads the list of transactions including the booking balance, if granted by the PSU in the related consent and available by the ASPSP. This parameter might be ignored by the ASPSP</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_standing_orders_reporting">Standing Orders reporting</h4>
+<div class="paragraph">
+<p>The list of standing orders is retrieved by using dedicated query parameter <strong>"bookingStatus=information"</strong> when retrieving transaction data from ASPSP.</p>
+</div>
+<div class="paragraph">
+<p>In case of bookingStatus equals "information", the query parameters dateFrom, dateTo, withBalance deltaList and entryReferenceFrom will be ignored and have no effect on the result.</p>
+</div>
+<div class="paragraph">
+<p>The standing order report is supported in JSON format only.
+This feature is optional for the ASPSP and configures in ASPSP-Profile by parameter <strong>availableBookingStatuses</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_report_format">Report format</h4>
+<div class="paragraph">
+<p>TPP could specify preferable format (xml or JSON or text) for Read Transaction List by setting appropriate type in “Content Type" field. It will be validated on xs2a side. Further actions will be performed on the connector side.</p>
+</div>
+<div class="paragraph">
+<p>During request of Transaction List, in case when transaction report has a huge size, ASPSP can provide Download Link in Read Transaction List Response, it enables to download transaction report.</p>
+</div>
+<div class="paragraph">
+<p>Possible variants that may be received from SPI in getTransactionList request:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>only list of transactions;</p>
+</li>
+<li>
+<p>only link "download";</p>
+</li>
+<li>
+<p>list of transactions and link "download" (only for JSON format of response, otherwise this combination is not possible);</p>
+</li>
+<li>
+<p>the standing order report is supported only in JSON format within this specification.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>From the TPP side the download can be initiated by accessing new endpoint in account controller - <strong>GET /v1/accounts/{account-id}/transactions/download/{download-id}</strong>. TPP should provide the AIS consent account ID and the download ID. As a response for accessing this endpoint, the TPP receives the stream with transaction list.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../usecases/diagrams/ReadTransactionList.png" alt="Read Transaction List">
+</div>
+<div class="title">Figure 8. Read Transaction List</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_read_transaction_details">Read Transaction Details</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_read_card_account_data">Read Card Account Data</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="paragraph">
+<p>Functionality allows ASPSP to deliver Card accounts related information through XS2A interface (details, transactions, balances, etc.).
+This endpoint is not directly related to credit cards as such, but the financial account behind the related cards.</p>
+</div>
+<div class="paragraph">
+<p>Read an additional information of card accounts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Read Card Account List;</p>
+</li>
+<li>
+<p>Read Card Account Details;</p>
+</li>
+<li>
+<p>Read Card Account Balance;</p>
+</li>
+<li>
+<p>Read Card Account Transaction List.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>is assumed that a consent of the PSU to this access is already given and stored on the ASPSP system. Accesses to Card accounts information Services is granted
+by establishing AIS Consent.</p>
+</div>
+<div class="paragraph">
+<p>The ability to create Consent on Account List of Available Accounts depends on successful validation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The attribute in the ASPSP-Profile <strong>"supportedAccountReferenceFields"</strong> should contain account identifier <strong>"pan"</strong> or <strong>"maskedPan"</strong>.
+If ASPSP doesn&#8217;t support such type of account reference, then XS2A responds with <strong>http 400 FORMAT_ERROR</strong> "Attribute pan/maskedPan is not supported by ASPSP".</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multicurrency_accounts">Multicurrency Accounts</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="paragraph">
+<p><strong>Definition:</strong> A multicurrency account is an account which is a collection of different sub-accounts which are all addressed by the same account identifier like an IBAN by e.g. payment initiating parties. The sub-accounts are legally different accounts and they all differ in their currency, balances and transactions. An account identifier like an IBAN together with a currency always addresses uniquely a sub-account of a multicurrency account.</p>
+</div>
+<div class="paragraph">
+<p>The specification supports to address multicurrency accounts either on collection or on sub-account level. The currency data attribute in the corresponding data structure "Account Reference" allows to build structures like:</p>
+</div>
+<div class="paragraph">
+<p>{"iban": "DE40100100103307118608"}</p>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="paragraph">
+<p>{"iban": "DE40100100103307118608",
+ "currency": "EUR"}.</p>
+</div>
+<div class="paragraph">
+<p>If the underlying account is a multicurrency account, then:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the first reference is referring to the collection of all sub-accounts addressable by this IBAN, and</p>
+</li>
+<li>
+<p>the second reference is referring to the euro sub-account only.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Multicurrency Accounts in Submission of Consents</strong>: Multicurrency accounts are addressed by just using the external account identifier in the submission of a consent on dedicated accounts, without specifying a currency. Asking for the consent to retrieve account information data of a multicurrency accounts implies getting it for all sub-accounts.</p>
+</div>
+<div class="paragraph">
+<p><strong>Multicurrency Accounts in Reading Accounts or Account Details</strong>: The ASPSP will decide in its implementation whether to grant data access to a multicurrency account on aggregation level, on aggregation and sub-account level, or only on sub-account level. See examples below.</p>
+</div>
+<div class="paragraph">
+<p><strong>Multicurrency Accounts in Reading Balances</strong>: The consequence for this function is that an array of balances of all sub-accounts are returned, if a multicurrency account is addressed on aggregation level. The currency of the respective sub-account is implicitly provided as the currency of the balanceAmount element within the balance.</p>
+</div>
+<div class="paragraph">
+<p><strong>Multicurrency Accounts in Reading Transactions</strong>: The consequence for this function is that the list of transactions will contain all transactions of all sub-accounts, if a multicurrency account is addressed on aggregation level. In this case the payment transactions contained in the report may have different transaction currencies.</p>
+</div>
+<div class="paragraph">
+<p>To fit the requirements one more value was added to ASPSP-profile named <strong>"multicurrencyAccountLevelSupported"</strong> with possible options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AGGREGATION;</p>
+</li>
+<li>
+<p>AGGREGATION_AND_SUBACCOUNT;</p>
+</li>
+<li>
+<p>SUBACCOUNT (by default).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This interface specification is acting on sub-accounts of multicurrency accounts in exactly the same way as on regular accounts. This applies to payment initiation as well as to account information.</p>
+</div>
+<div class="paragraph">
+<p>In case of parameter <strong>"multicurrencyAccountLevelSupported"</strong> in ASPSP-Profile is set to <strong>"AGGREGATION"</strong> and PSU has a multicurrency account with two sub-accounts with currencies EUR and USD, then Response for Read Account List Request contains data for an account with <strong>undefined "currency": "XXX"</strong> and <strong>"product": "Multi currency account"</strong> .</p>
+</div>
+<div class="paragraph">
+<p><strong>Remark:</strong> The multi-currency account product is in use in some markets in Europe, e.g. in Online-Banking products within the Belgium market. The support of this functionality in the XS2A API is only applicable in these markets.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_funds_confirmation_service">Funds Confirmation Service</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="paragraph">
+<p>The overall confirmation of funds service is separated in two phases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Establish PIIS consent (Optional);</p>
+</li>
+<li>
+<p>Perform the actual Confirmation of Funds through xs2a.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The first part is not mandated to be offered by the XS2A interface, since this could also be an online banking function or even a paper based consent process.</p>
+</div>
+<div class="paragraph">
+<p>Parameter <strong>"piisConsentSupported"</strong> in the ASPSP-Profile, defines which model of PIIS Consent ASPSP supports:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>NOT_SUPPORTED</strong>;</p>
+</li>
+<li>
+<p><strong>TPP_CONSENT_SUPPORTED</strong> (Establish PIIS Consent through XS2A interface);</p>
+</li>
+<li>
+<p><strong>ASPSP_CONSENT_SUPPORTED</strong> (ASPSP stores PIIS consent in CMS and Funds Confirmation request is validated according to this consent);</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There is no information about expiration of Funds Confirmation Consent created by TPP, so it will stay <strong>VALID</strong> until TPP or ASPSP revokes it.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If TPP has no Valid PIIS Consent and tries to request Funds Confirmation, then response contains <strong>HTTP code  400 "NO_PIIS_ACTIVATION"</strong>;</p>
+</li>
+<li>
+<p>When parameter <strong>"piisConsentSupported"</strong> in the ASPSP-Profile set to <strong>ASPSP_CONSENT_SUPPORTED</strong> and PIIS Consent is stored in CMS without TPP-Authorisation-Number,
+this PIIS consent can be used by any TPP. If TPP-Authorisation-Number is set in consent - PIIS consent is for particular TPP;</p>
+</li>
+<li>
+<p>Funds Confirmation should be requested by the same TPP which is written in Consent. In case when validation is <strong>unsuccessful</strong>, XS2A sends the response with <strong>HTTP code 400 CONSENT_UNKNOWN</strong>.</p>
+</li>
+<li>
+<p>If Establish PIIS Consent through XS2A interface is not supported by ASPSP (parameter <strong>"piisConsentSupported"</strong> = <strong>NOT_SUPPORTED</strong> or <strong>ASPSP_CONSENT_SUPPORTED</strong>), then XS2A sends the response with <strong>HTTP 405 SERVICE_INVALID</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_piis_consent_statuses">PIIS Consent Statuses:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>While creating PIIS consent by ASPSP, in case of existing old valid consent for TPP, one PSU and one account (Mandatory)-its consent status becomes <strong>"RevokedByPSU"</strong> as soon as new one for the same TPP, the same PSU and the same account is created with status Valid.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resource_status_notification_service">Resource Status Notification Service</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="paragraph">
+<p>TPP can implicitly subscribe for a Resource Status Notification Service for all the related POST commands for the Payment Initiation Request, the Establish Account Information Request or the Signing Basket Request.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The notification services will also be available for cancellation processes which require SCA based authentication of PSUs. These services will then be supported by the ASPSP if requested before by the TPP for the related resource initiation process. So, the "notification service" support function is stored within the created resource.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There is a parameter in the ASPSP-profile "aspspNotificationsSupported", which defines whether ASPSP supports resource status notification services. Possible values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SCA</strong> (a notification on every change of the scaStatus attribute for all related authorisation processes.);</p>
+</li>
+<li>
+<p><strong>PROCESS</strong> (a notification on all changes of consentStatus or transactionStatus attributes.);</p>
+</li>
+<li>
+<p><strong>LAST</strong> (only a notification on the last consentStatus or transactionStatus as available in the XS2A interface);</p>
+</li>
+<li>
+<p><strong>NONE</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It can be set from 1 to 3 values simultaniously, or set <strong>NONE</strong> if ASPSP doesn&#8217;t support status notifications.</p>
+</div>
+<div class="paragraph">
+<p>In case of TPP requests content which is not supported by ASPSP, then response contains header <strong>ASPSP-Notification-Support=FALSE</strong> and <strong>NO</strong> header <strong>ASPSP-Notification-Content</strong>.</p>
+</div>
+<div class="paragraph">
+<p>In case of Notification generally not supported by the ASPSP (<strong>aspspNotificationsSupported = NONE</strong>), then response does not contain headers (ASPSP-Notification-Support or ASPSP-Notification-Content).</p>
+</div>
+<div class="paragraph">
+<p>Resource Notification Push Service will be implemented in the future and will allow TPP to receive push notifications about every change of Transaction/Consent/SCA statuses.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_features">Common features</h2>
+<div class="sectionbody">
+<!-- toc disabled -->
+<div class="sect2">
+<h3 id="_support_of_relative_and_global_links_in_responses">Support of Relative and Global links in responses</h3>
+<div class="paragraph">
+<p>In <a href="https://github.com/adorsys/xs2a/tree/develop/aspsp-profile">ASPSP Profile</a> support of relative links look like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>forceXs2aBaseLinksUrl: true
+xs2aBaseLinksUrl: "/"</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <strong>"forceXs2aBaseLinksUrl"</strong> is set to <strong>TRUE</strong>, links in responses (except <strong>"scaRedirect"</strong>) shall be generated with the base URL set by <strong>"xs2aBaseLinksUrl"</strong>:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>xs2aBaseLinksUrl="/" - for relative link;</p>
+</li>
+<li>
+<p>xs2aBaseLinksUrl=&#8220;<a href="http://myhost.com/&#8221" class="bare">http://myhost.com/&#8221</a>; - for global link;</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If <strong>"forceXs2aBaseLinksUrl"</strong> is set to <strong>FALSE</strong>, links in responses (except <strong>"scaRedirect"</strong>) shall be generated with the base URL of controller (as it is now);</p>
+</li>
+<li>
+<p>Default value for <strong>"forceXs2aBaseLinksUrl"</strong> is <strong>FALSE</strong>.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option in Profile</th>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">forceXs2aBaseLinksUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">xs2aBaseLinksUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"/"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"http://&#8230;&#8203;"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"/"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"http://&#8230;&#8203;"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">relative link</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">global link</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Link based on URL of controller</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Link based on URL of controller</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_supported_payment_products">Supported payment products</h3>
+<div class="paragraph">
+<p>ASPSP-Profile contains a possible combination of payment-product/payment-type that ASPSP supports.
+Each product type (SINGLE, BULK, PERIODIC) may contain payment products according to Berlin Group specification:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>sepa-credit-transfers;</p>
+</li>
+<li>
+<p>instant-sepa-credit-transfers;</p>
+</li>
+<li>
+<p>target-2-payments;</p>
+</li>
+<li>
+<p>cross-border-credit-transfers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Other payment products, supported by ASPSP, can be added for every payment type.
+If it is needed to receive extra parameters in payment (for example, bank sort code), not supported by BG Specification, ASPSP can add new payment product to Profile and xs2a api will pass payment object of this payment product to Connector side without validation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tpps_role_validation">TPP&#8217;s role validation</h3>
+<div class="paragraph">
+<p>Since the pasportisation process in place acts without changing the TPP’s certificate, XS2A can&#8217;t rely entirely on the roles from TPP’s certificate. It is up to ASPSP to decide the way of TPP&#8217;s role validation.</p>
+</div>
+<div class="paragraph">
+<p>TPP access to XS2A resources may be verified based on incoming Header, which can be set between ASPSP’s gateway and XS2A, but not before the ASPSP’s gateway (one can use adorsys QwacAssessor (<a href="https://adorsys-platform.de/solutions/qwac-assessor/" class="bare">https://adorsys-platform.de/solutions/qwac-assessor/</a>) for it).</p>
+</div>
+<div class="paragraph">
+<p>ASPSP Gateway is responsible that this Header is prohibited from receiving it from TPP. If the Header is present, TPP’s requests will be validated according to roles in Header. TPP roles will be saved and updated in CMS.</p>
+</div>
+<div class="paragraph">
+<p>If the Header is not defined, then XS2A checks preferences in the ASPSP-Profile. Parameter <strong>"checkTppRolesFromCertificateSupported"</strong> defines whether the role validation will occur according to certificate or not.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_signature_and_digest_verifier">Signature and digest verifier</h3>
+<div class="paragraph">
+<p>Requirement of Digital Signature for TPP is configured in ASPSP-Profile by parameter <strong>"tppSignatureRequired"</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If an ASPSP requires the TPP to send a digital signature (<strong>tppSignatureRequired = TRUE</strong>), it can be validated in XS2A validator module, which contains validators for signature and digest Headers. A keyID check is also added.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_validation_of_tpps_uris">Validation of TPPs URIs</h3>
+<div class="paragraph">
+<p>Usage of redirection URI (TPP-Redirect-Uri/TPP-Nok-Redirect-URI/TPP- Notification-URI) in domains that are secured by the TPP QWAC is Optional (strong recommendation).</p>
+</div>
+<div class="paragraph">
+<p>Parameter <strong>"checkUriComplianceToDomainSupported"</strong> in ASPSP-Profile, defines whether ASPSP supports validation of TPP URIs with domain from certificate for compliance or not.</p>
+</div>
+<div class="paragraph">
+<p>If parameter is set to <strong>TRUE</strong>, and TPP URIs are not compliant, then Response contains tppMessages with text "TPP URIs are not compliant with the domain secured by the eIDAS QWAC certificate of the TPP in the field CN or SubjectAltName of the certificate".
+And request is not rejected.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2020-04-07 15:39:22 UTC
+</div>
+</div>
+</body>
+</html>
